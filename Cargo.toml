@@ -15,7 +15,7 @@ links = "fmod"
 # See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
 
 [dependencies]
-mockall = { version = "0.11", optional = true }
+mockall = { version = "~0.12", optional = true }
 
 [build-dependencies]
 bindgen = "~0.69"

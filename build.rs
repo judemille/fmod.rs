@@ -62,7 +62,9 @@ fn handle_platform(fmod_dir: &Path) -> Result<(), Whatever> {
         if cfg!(feature = "studio") {
             let studio_libs = studio_libs.join("upstream/w32");
             println!("cargo:rustc-link-search={}", studio_libs.display());
-            println!("cargo:rustc-link-lib=static:+verbatim=fmodstudio{dbg}:fmodstudio{dbg}_wasm.a");
+            println!(
+                "cargo:rustc-link-lib=static:+verbatim=fmodstudio{dbg}:fmodstudio{dbg}_wasm.a"
+            );
         } else {
             let core_libs = core_libs.join("upstream/w32");
             println!("cargo:rustc-link-search={}", core_libs.display());
@@ -78,41 +80,39 @@ fn handle_platform(fmod_dir: &Path) -> Result<(), Whatever> {
                 Architecture::X86_64 => "x64",
                 _ => whatever!("Unsupported architecture: {}", triple.architecture),
             });
-            println!(
-                "cargo:rustc-link-search={}",
-                core_libs.join(lib_suffix).display()
-            );
-            #[cfg(feature = "fsbank")]
-            println!(
-                "cargo:rustc-link-search={}",
-                fsbank_libs.join(lib_suffix).display()
-            );
-            #[cfg(feature = "studio")]
-            println!(
-                "cargo:rustc-link-search={}",
-                studio_libs.join(lib_suffix).display()
-            );
             let lib_infix = if matches!(triple.vendor, target_lexicon::Vendor::Uwp) {
                 ""
             } else {
                 "_vc"
             };
+            println!(
+                "cargo:rustc-link-search={}",
+                core_libs.join(lib_suffix).display()
+            );
             println!("cargo:rustc-link-lib=fmod{dbg}:fmod{dbg}{lib_infix}.lib");
-            #[cfg(feature = "fsbank")]
-            println!("cargo:rustc-link-lib=fsbank:fsbank_vc.lib"); // The _vc infix applies to UWP, too. Weird.
-            #[cfg(feature = "studio")]
-            println!("cargo:rustc-link-lib=fmodstudio{dbg}:fmodstudio{dbg}{lib_infix}.lib");
+            if cfg!(feature = "fsbank") {
+                println!(
+                    "cargo:rustc-link-search={}",
+                    fsbank_libs.join(lib_suffix).display()
+                );
+                println!("cargo:rustc-link-lib=fsbank:fsbank_vc.lib"); // The _vc infix applies to UWP, too. Weird.
+            }
+            if cfg!(feature = "studio") {
+                println!(
+                    "cargo:rustc-link-search={}",
+                    studio_libs.join(lib_suffix).display()
+                );
+                println!("cargo:rustc-link-lib=fmodstudio{dbg}:fmodstudio{dbg}{lib_infix}.lib");
+            }
         }
         OperatingSystem::MacOSX { .. } => {
             println!("cargo:rustc-link-search={}", core_libs.display());
             println!("cargo:rustc-link-lib=fmod{dbg}");
-            #[cfg(feature = "fsbank")]
-            {
+            if cfg!(feature = "fsbank") {
                 println!("cargo:rustc-link-search={}", fsbank_libs.display());
                 println!("cargo:rustc-link-lib=fsbank{dbg}");
             }
-            #[cfg(feature = "studio")]
-            {
+            if cfg!(feature = "studio") {
                 println!("cargo:rustc-link-search={}", studio_libs.display());
                 println!("cargo:rustc-link-lib=fmodstudio{dbg}");
             }
@@ -137,8 +137,7 @@ fn handle_platform(fmod_dir: &Path) -> Result<(), Whatever> {
                 if cfg!(feature = "fsbank") {
                     whatever!("fsbank feature is unsupported on Android!");
                 }
-                #[cfg(feature = "studio")]
-                {
+                if cfg!(feature = "studio") {
                     println!(
                         "cargo:rustc-link-search={}",
                         studio_libs.join(lib_suffix).display()
@@ -158,16 +157,14 @@ fn handle_platform(fmod_dir: &Path) -> Result<(), Whatever> {
                     core_libs.join(lib_suffix).display()
                 );
                 println!("cargo:rustc-link-lib=fmod{dbg}");
-                #[cfg(feature = "fsbank")]
-                {
+                if cfg!(feature = "fsbank") {
                     println!(
                         "cargo:rustc-link-search={}",
                         fsbank_libs.join(lib_suffix).display()
                     );
                     println!("cargo:rustc-link-lib=fsbank{dbg}");
                 }
-                #[cfg(feature = "studio")]
-                {
+                if cfg!(feature = "studio") {
                     println!(
                         "cargo:rustc-link-search={}",
                         studio_libs.join(lib_suffix).display()
@@ -209,8 +206,7 @@ fn ios_like(
     let sim = if is_sim { "simulator" } else { "" };
     println!("cargo:rustc-link-search={}", core_libs.display());
     println!("cargo:rustc-link-lib=static=fmod{dbg}:libfmod{dbg}_{infix}{sim}.a");
-    #[cfg(feature = "studio")]
-    {
+    if cfg!(feature = "studio") {
         println!("cargo:rustc-link-search={}", studio_libs.display());
         println!("cargo:rustc-link-lib=static=fmodstudio{dbg}:libfmodstudio{dbg}_{infix}{sim}.a");
     }
