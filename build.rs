@@ -232,24 +232,24 @@ fn main() -> Result<(), Whatever> {
         .header("src/bindgen.h")
         .use_core()
         .parse_callbacks(Box::new(bindgen::CargoCallbacks::new()))
-        .clang_args(get_clang_args(fmod_dir)?);
-
-    let bindings_fns_only = bindings_bld
-        .clone()
-        .with_codegen_config(CodegenConfig::FUNCTIONS)
-        .blocklist_function("__va_start") // This symbol breaks builds on Windows, and is unneeded.
-        .blocklist_function("__report_gsfailure") // Likewise.
-        .generate()
-        .whatever_context("Could not generate function-only bindings!")?
-        .to_string();
-
-    let bindings_except_fns = bindings_bld
         .prepend_enum_name(false)
         .default_enum_style(bindgen::EnumVariation::NewType {
             is_bitfield: false,
             is_global: false,
         })
         .default_macro_constant_type(bindgen::MacroTypeVariation::Signed)
+        .blocklist_function("__va_start") // This symbol breaks builds on Windows, and is unneeded.
+        .blocklist_function("__report_gsfailure") // Likewise.
+        .clang_args(get_clang_args(fmod_dir)?);
+
+    let bindings_fns_only = bindings_bld
+        .clone()
+        .with_codegen_config(CodegenConfig::FUNCTIONS)
+        .generate()
+        .whatever_context("Could not generate function-only bindings!")?
+        .to_string();
+
+    let bindings_except_fns = bindings_bld
         .ignore_functions()
         .generate()
         .whatever_context("Could not generate bindings without functions!")?

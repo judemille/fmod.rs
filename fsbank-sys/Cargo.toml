@@ -1,0 +1,30 @@
+# SPDX-FileCopyrightText: 2024 Julia DeMille <me@jdemille.com>
+#
+# SPDX-License-Identifier: MPL-2.0
+
+[package]
+name = "fsbank-sys"
+version = {workspace = true}
+edition = {workspace = true}
+authors = ["Julia DeMille <me@jdemille.com>"]
+categories = ["external-ffi-bindings"]
+build = "build.rs"
+keywords = ["fmod", "fsbank"]
+links = "fsbank"
+
+# See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
+
+[dependencies]
+mockall = { version = "~0.13", optional = true }
+
+[build-dependencies]
+bindgen = "0.70"
+camino = "1"
+fmod-build-utils = { path = "../fmod-build-utils" }
+
+[features]
+mockall = ["dep:mockall"]
+
+[lints.clippy]
+all = "warn"
+pedantic = "warn"

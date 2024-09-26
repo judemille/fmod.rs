@@ -2,31 +2,10 @@
 #
 # SPDX-License-Identifier: MPL-2.0
 
-[package]
-name = "fmod-sys"
+[workspace]
+members = ["fmod-studio-sys", "fmod-sys", "fsbank-sys", "fmod-build-utils"]
+resolver = "2"
+
+[workspace.package]
 version = "0.1.0"
 edition = "2021"
-authors = ["Julia DeMille <me@jdemille.com>"]
-categories = ["external-ffi-bindings"]
-build = "build.rs"
-keywords = ["fmod"]
-links = "fmod"
-
-# See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
-
-[dependencies]
-mockall = { version = "~0.12", optional = true }
-
-[build-dependencies]
-bindgen = "~0.69"
-snafu = "~0.7"
-target-lexicon = { version = "~0.12", features = ["std"] }
-
-[features]
-fsbank = []
-mockall = ["dep:mockall"]
-studio = []
-
-[lints.clippy]
-all = "warn"
-pedantic = "warn"

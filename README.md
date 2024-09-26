@@ -1,30 +1,14 @@
-[![docs.rs](https://img.shields.io/docsrs/fmod-sys)](https://docs.rs/fmod-sys) [![GitHub Workflow Status (with event)](https://img.shields.io/github/actions/workflow/status/judemille/fmod-sys/rust.yml)](https://github.com/judemille/fmod-sys/actions)
+<!--
+SPDX-FileCopyrightText: 2024 Julia DeMille <me@jdemille.com>
+
+SPDX-License-Identifier: MPL-2.0
+-->
+
+[![docs.rs](https://img.shields.io/docsrs/fmod-sys)](https://docs.rs/fmod-sys) [![GitHub Workflow Status (with event)](https://img.shields.io/github/actions/workflow/status/judemille/fmod-sys/rust.yml)](https://github.com/judemille/fmod-sys/actions) [![Contributor Covenant](https://img.shields.io/badge/Contributor%20Covenant-2.1-4baaaa.svg)](code_of_conduct.md)
 
 # fmod-sys: Rust bindings for the FMOD Engine SDK
 
 This crate provides raw, low-level bindings to the FMOD Engine SDK.
-
-## Disclaimer
-
-The current maintainer of this project is a trans lesbian who unequivocally supports
-Ukraine, and opposes any and all human rights violations.
-
-### *You should not use this project if you:*
-
-- Do not unequivocally support the LGBTQ+ population, including transgender
-  individuals.
-- Think that LGBTQ+ people "shouldn't put it out on display"
-- Support "drop the T", TERF, or similar movements.
-- Think that pedophilia is included in LGBTQ+, either because you want it to be
-  included, or you think that the community accepts it. It does not accept it.
-- Refuse to address and refer to people with their preferred name, pronouns, and
-  gender labels.
-- Do not support Ukraine's struggle against their Russian oppressors.
-- Support any far-right parties or politicians (including Vladimir Putin, the GOP,
-  AfD, FdI, and similar)
-
-I cannot stop you, but anyone observed to meet the above listed criteria who
-interacts with the project will be blocked from interaction.
 
 ## License
 
@@ -90,4 +74,3 @@ use fmod_sys_fns::{...};
 ```
 
 You can also use the `mockall::double` macro if you so desire.
-
