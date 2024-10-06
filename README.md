@@ -4,7 +4,7 @@ SPDX-FileCopyrightText: 2024 Julia DeMille <me@jdemille.com>
 SPDX-License-Identifier: MPL-2.0
 -->
 
-[![docs.rs](https://img.shields.io/docsrs/fmod-sys)](https://docs.rs/fmod-sys) [![GitHub Workflow Status (with event)](https://img.shields.io/github/actions/workflow/status/judemille/fmod-sys/rust.yml)](https://github.com/judemille/fmod-sys/actions) [![Contributor Covenant](https://img.shields.io/badge/Contributor%20Covenant-2.1-4baaaa.svg)](code_of_conduct.md)
+[![fmod-sys docs](https://img.shields.io/badge/docs-fmod--sys-maroon?logo=docsdotrs)](https://docs.rs/fmod-sys) [![fmod-studio-sys docs](https://img.shields.io/badge/docs-fmod--studio--sys-maroon?logo=docsdotrs)](https://docs.rs/fmod-studio-sys) [![fsbank-sys docs](https://img.shields.io/badge/docs-fsbank--sys-maroon?logo=docsdotrs)](https://docs.rs/fsbank-sys) [![GitHub Workflow Status (with event)](https://img.shields.io/github/actions/workflow/status/judemille/fmod-sys/rust.yml)](https://github.com/judemille/fmod-sys/actions) [![Contributor Covenant](https://img.shields.io/badge/Contributor%20Covenant-2.1-4baaaa.svg)](code_of_conduct.md)
 
 # fmod-sys: Rust bindings for the FMOD Engine SDK
 
@@ -56,10 +56,10 @@ This will probably change once a stable release goes out.
 
 ## Unit Testing
 
-The `mockall` feature of this crate is intended to be enabled when unit testing a
-crate that uses this crate. All functions will be mocked, using
-[mockall.](https://github.com/asomers/mockall) This crate currently exposes
-`mockall = "~0.12"`.
+The `mockall` feature of these crates is intended to be enabled when unit testing a
+crate that uses one of these crates. All functions will be mocked, using
+[mockall.](https://github.com/asomers/mockall) These crates currently expose
+`mockall = "~0.13"`.
 
 Functions live in the `functions` module, which, when mocking is enabled, is doubled
 up as `mock_functions`. It can be used like this:
